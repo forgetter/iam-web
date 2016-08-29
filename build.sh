@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo '>>> Get old container id'
-
+ 
 CID=$(docker ps | grep "iam" | awk '{print $1}')
 echo $CID
 
