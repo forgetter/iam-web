@@ -15,12 +15,14 @@ echo 'dataSource.url=jdbc:mysql://10.0.7.107:3306/iam?useUnicode=true&characterE
 echo 'dataSource.username=root' >> WEB-INF/classes/datasource.properties
 echo 'dataSource.password=root' >> WEB-INF/classes/datasource.properties
 
-sudo docker build -t iam .
-
 echo '>>> Get old container id'
 
 CID=$(docker ps | grep "iam" | awk '{print $1}')
 echo $CID
+
+sudo docker build -t iam .
+
+sudo echo '' >> /dockerlogs/iam-build.log
 
 docker build -t iam . | tee /dockerlogs/iam-build.log
 RESULT=$(cat /dockerlogs/iam-build.log | tail -n 1)
