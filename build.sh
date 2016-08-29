@@ -22,7 +22,7 @@ echo $CID
 
 sudo docker build -t iam .
 
-sudo echo '' >> /dockerlogs/iam-build.log
+sudo echo '' > /dockerlogs/iam-build.log
 
 docker build -t iam . | tee /dockerlogs/iam-build.log
 RESULT=$(cat /dockerlogs/iam-build.log | tail -n 1)
