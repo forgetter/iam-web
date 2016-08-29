@@ -1,3 +1,3 @@
 FROM tomcat7-jre8:latest
 
-ADD WEB-INF /tomcat/webapps/iam/
+ADD WEB-INF /tomcat/webapps/iam/WEB-INF/
