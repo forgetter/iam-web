@@ -2,13 +2,12 @@
 
 echo '>>> Get old container id'
  
-CID=$(docker ps | grep "iam" | awk '{print $1}')
+CID=$(sudo docker ps | grep "iam" | awk '{print $1}')
 echo $CID
 
-sudo docker build -t iam .
 
 touch /dockerlogs/iam-build.log
-docker build -t iam . | tee /dockerlogs/iam-build.log
+sudo docker build -t iam . | tee /dockerlogs/iam-build.log
 RESULT=$(cat /dockerlogs/iam-build.log | tail -n 1)
 if [["$RESULT" != *Successfully*]];then
   exit -1
@@ -16,9 +15,9 @@ fi
  
 if [ "$CID" != "" ];then
   echo '>>> Stopping old container'
-  docker stop $CID
-  docker rm $CID
+  sudo docker stop $CID
+  sudo docker rm $CID
 fi
 
 echo '>>> Starting new container'
-docker run -d -p 10040:8080 iam
+sudo docker run -d -p 10040:8080 iam
