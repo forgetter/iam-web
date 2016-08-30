@@ -11,9 +11,9 @@ touch /dockerlogs/iam-build.log
 
 docker build -t iam . | tee /dockerlogs/iam-build.log
 RESULT=$(cat /dockerlogs/iam-build.log | tail -n 1)
-#if [["$RESULT" != *Successfully*]];then
-#  exit -1
-#fi
+if [["$RESULT" != *Successfully*]];then
+  exit -1
+fi
  
 if [ "$CID" != "" ];then
   echo '>>> Stopping old container'
