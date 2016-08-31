@@ -8,7 +8,7 @@ echo $CID
 sudo touch iam-build.log
 
 sudo docker build -t iam . | tee iam-build.log
-
+ 
 RESULT=$(cat iam-build.log | tail -n 1)
 if ["$RESULT" != *Successfully*];then
   exit -1
