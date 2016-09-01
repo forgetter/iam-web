@@ -69,12 +69,11 @@ function init() {
 	
 	var viewSucceed;
 	var viewSucceedArray = [];
-	var userInfo = encodeUserInfo(itoken);
 	if(itoken == "") {
-		viewSucceedArray.push('<div class="sign"><a onclick="login()">登录</a></div>');
-		viewSucceedArray.push('<div class="sign"><a onclick="signup()">注册</a></div>');
+ 		viewSucceedArray.push('<div class="sign"><a onclick="login()">登录</a></div>');
+ 		viewSucceedArray.push('<div class="sign"><a onclick="signup()">注册</a></div>');
 	} else {
-		viewSucceedArray.push('<a data-toggle="dropdown" data-bind="text:userName" class="username"><span id="username">'+userInfo.uname+'</span><span class="caret"></span></a>');
+		viewSucceedArray.push('<a data-toggle="dropdown" data-bind="text:userName" class="username"><span id="username"></span><span class="caret"></span></a>');
 		viewSucceedArray.push('<div class="dropdown-menu ue-dropdown-menu dropdown-menu-right">');
 		viewSucceedArray.push('<span class="ue-dropdown-angle"></span>');
 		viewSucceedArray.push('<img class="user-photo" src="/demo/skins/skin/platform/img/user.jpg"/>');
@@ -93,15 +92,6 @@ function init() {
 
 }(window, document);
 
-function encodeUserInfo(itoken){
-	var tokenInfo = itoken.split(".");
-	if(tokenInfo.length == 3) {
-		var payload = $.base64.decode(tokenInfo[1]);
-		return JSON.parse(payload);
-	}
-	return null;
-}
-
 /**
 引入资源
 */
@@ -110,10 +100,10 @@ function importresource() {
 	var theDate = +new Date();
 
 	// js css import
+		//I.DOMAIN + '/skins/skin/css/bootstrap.css',
+		//I.DOMAIN + '/skins/skin/css/font-awesome.css',
+		//I.DOMAIN + '/skins/skin/css/ui.css',
 	var cssArray = new Array(
-		I.DOMAIN + '/skins/skin/css/bootstrap.css',
-		I.DOMAIN + '/skins/skin/css/font-awesome.css',
-		I.DOMAIN + '/skins/skin/css/ui.css',
 		I.DOMAIN + '/skins/skin/platform/css/home.css'
 	);
 	for(var i=0; i<cssArray.length; i++){
@@ -124,10 +114,10 @@ function importresource() {
 		cssTarget.setAttribute('data-timestamp', theDate);
 		(document.head).appendChild(cssTarget);
 	}
+	//	I.DOMAIN + '/skins/js/bootstrap.js',
 	var jsArray = new Array(
 		I.DOMAIN + '/skins/js/jquery.js',
 		I.DOMAIN + '/skins/js/jquery.base64.js',
-		I.DOMAIN + '/skins/js/bootstrap.js',
 		I.DOMAIN + '/skins/js/json.js',
 		I.DOMAIN + '/skins/js/iamui.js'
 	);

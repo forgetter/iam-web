@@ -128,9 +128,9 @@
 			var logininfo = $.base64.encode(un + ":" + up);
 			
 			$.ajax({
-				url: "//dev.imaicloud.com/iam/api/v1/loginAttempt",
+				url: "https://dev.imaicloud.com/iam/api/v1/loginAttempt",
 				type: "post",  
-        		crossDomain: true,
+        			crossDomain: true,
 				contentType: "application/json; charset=utf-8",
 				data: JSON.stringify({"type": "basic","value": logininfo}),
 				success: function(data) {
@@ -138,11 +138,22 @@
 						$("#hints").show();
 						$("#hints").children("p").text(data.message);
 					} else {
-						setCookie("itoken", data.itoken, null);
-						var redirectURL = getRedirectURL();
-						if(getRedirectURL != "" && getRedirectURL != null) {
-							window.location.href = decodeURIComponent(redirectURL);
-						}					
+						setCookie("itoken", data.itoken, 2147483647);
+						
+						var tokenInfo = data.itoken.split(".");
+						if(tokenInfo.length == 3) {
+							var payload = $.base64.decode(tokenInfo[1]);
+							var userInfo = JSON.parse(payload);
+							setCookie("imaicloud_expires", userInfo.exp, userInfo.exp);
+							setCookie("imaicloud_payload", tokenInfo[1], userInfo.exp);
+							setCookie("imaicloud_md5", tokenInfo[2], userInfo.exp);
+							setCookie("imaicloud_role", userInfo.group, userInfo.exp);
+							//var redirectURL = getRedirectURL();
+							var redirectURL = document.referrer;
+							if(getRedirectURL != "" && getRedirectURL != null) {
+								window.location.href = decodeURIComponent(redirectURL);
+							}
+						}			
 					}
 				},
 				error: function(e) {

@@ -141,12 +141,17 @@
 		
 		function loginAttempt(un, up){
 			$.ajax({
-				url: "//dev.imaicloud.com/iam/api/v1/accounts",
+				url: "https://dev.imaicloud.com/iam/api/v1/accounts",
 				type: "post",
+				crossDomain: true,
 				contentType: "application/json; charset=utf-8",
 				data: JSON.stringify({"email": un,"password": up}),
 				success: function(data) {
 					alert("注册成功！");
+					var redirectURL = document.referrer;
+					if(getRedirectURL != "" && getRedirectURL != null) {
+						window.location.href = decodeURIComponent(redirectURL);
+					}
 				},
 				error: function(e) {
 					alert(e);
