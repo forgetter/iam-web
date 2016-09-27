@@ -21,4 +21,4 @@ if [ "$CID" != "" ];then
 fi
 
 echo '>>> Starting new container'
-sudo docker run -d -p 10040:8080 -e dataSource.driverClassName=com.mysql.jdbc.Driver -e dataSource.url=jdbc:mysql://10.0.7.107:3306/iam?useUnicode=true&characterEncoding=UTF-8 -e dataSource.username=root -e dataSource.password=root iam
+sudo docker run -d -p 10040:8080 -e dataSource.driverClassName=org.gjt.mm.mysql.Driver -e dataSource.url=jdbc:mysql://10.0.7.107:3306/iam?useUnicode=true&characterEncoding=UTF-8 -e dataSource.username=root -e dataSource.password=root iam
